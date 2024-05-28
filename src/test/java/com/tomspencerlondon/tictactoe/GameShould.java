@@ -47,21 +47,13 @@ public class GameShould {
             .isEqualTo(new GameState(Status.SQUARE_ALREADY_PLAYED, Player.X));
     }
 
-    // X O X
-    // O X X
-    // O X O
-    @Test
-    void recognise_a_draw() {
-        var game = play(
-            TOP_LEFT,
-            TOP_MIDDLE,
-            TOP_RIGHT,
-            CENTRE_LEFT,
-            CENTRE_MIDDLE,
-            BOTTOM_MIDDLE,
-            CENTRE_RIGHT,
-            BOTTOM_RIGHT,
-            BOTTOM_LEFT);
+    @ParameterizedTest
+    @CsvSource({
+        "TOP_LEFT,TOP_MIDDLE,TOP_RIGHT,CENTRE_LEFT,CENTRE_MIDDLE,BOTTOM_LEFT,CENTRE_RIGHT,BOTTOM_RIGHT,BOTTOM_MIDDLE",
+        "TOP_LEFT,TOP_MIDDLE,TOP_RIGHT,CENTRE_MIDDLE,CENTRE_LEFT,CENTRE_RIGHT,BOTTOM_MIDDLE,BOTTOM_LEFT,BOTTOM_RIGHT"
+    })
+    void recognise_a_draw(Square s1, Square s2, Square s3, Square s4, Square s5, Square s6, Square s7, Square s8, Square s9) {
+        var game = play(s1, s2, s3, s4, s5, s6, s7, s8, s9);
 
         assertThat(game.state())
             .isEqualTo(new GameState(Status.DRAW, Player.NOBODY));
@@ -108,6 +100,27 @@ public class GameShould {
             CENTRE_MIDDLE,
             TOP_RIGHT,
             CENTRE_RIGHT);
+
+        assertThat(game.state())
+            .isEqualTo(new GameState(Status.X_HAS_WON, Player.NOBODY));
+    }
+
+    // X O X
+    // O X X
+    // O O X
+    @Test
+    void recognise_win_when_won_on_final_square() {
+        Game game = play(
+            TOP_LEFT,
+            TOP_MIDDLE,
+            TOP_RIGHT,
+            CENTRE_LEFT,
+            CENTRE_MIDDLE,
+            BOTTOM_LEFT,
+            CENTRE_RIGHT,
+            BOTTOM_MIDDLE,
+            BOTTOM_RIGHT
+        );
 
         assertThat(game.state())
             .isEqualTo(new GameState(Status.X_HAS_WON, Player.NOBODY));
