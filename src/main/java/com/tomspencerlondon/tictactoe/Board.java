@@ -47,7 +47,9 @@ public class Board {
             Stream.of(BOTTOM_LEFT, BOTTOM_MIDDLE, BOTTOM_RIGHT),
             Stream.of(TOP_LEFT, CENTRE_LEFT, BOTTOM_LEFT),
             Stream.of(TOP_MIDDLE, CENTRE_MIDDLE, BOTTOM_MIDDLE),
-            Stream.of(TOP_RIGHT, CENTRE_RIGHT, BOTTOM_RIGHT)
+            Stream.of(TOP_RIGHT, CENTRE_RIGHT, BOTTOM_RIGHT),
+            Stream.of(TOP_LEFT, CENTRE_MIDDLE, BOTTOM_RIGHT),
+            Stream.of(TOP_RIGHT, CENTRE_MIDDLE, BOTTOM_LEFT)
         );
         return winningCombinations.anyMatch(combo -> combo.allMatch(takenSquares::contains));
     }
