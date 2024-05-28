@@ -15,4 +15,14 @@ public class GameShould {
         assertThat(game.state())
             .isEqualTo(new GameState(Status.GAME_ON, Player.X));
     }
+
+    @Test
+    void wait_for_o_to_play_after_x() {
+        var game = new Game();
+
+        game = game.play();
+
+        assertThat(game.state())
+            .isEqualTo(new GameState(Status.GAME_ON, Player.O));
+    }
 }

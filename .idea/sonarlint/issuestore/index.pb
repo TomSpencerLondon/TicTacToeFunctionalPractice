@@ -19,3 +19,9 @@ h
 8src/main/java/com/tomspencerlondon/tictactoe/Player.java,5/d/5d34892a1ee5f89a249b1f57194ee712bede82e8
 k
 ;src/main/java/com/tomspencerlondon/tictactoe/GameState.java,d/2/d2a3f0d3a3db3194cc4346890730d430bfb10cf1
+9
+	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+S
+#.idea/sonarlint/issuestore/index.pb,9/f/9fe84ebb15faf917b7def6236dba604453cc61e0
+]
+-.idea/sonarlint/securityhotspotstore/index.pb,8/8/88a9255124c95bdc913197c120a8d560edc59c8e
