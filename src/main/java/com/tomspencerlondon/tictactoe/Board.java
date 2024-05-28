@@ -1,5 +1,8 @@
 package com.tomspencerlondon.tictactoe;
 
+import static com.tomspencerlondon.tictactoe.Square.BOTTOM_LEFT;
+import static com.tomspencerlondon.tictactoe.Square.BOTTOM_MIDDLE;
+import static com.tomspencerlondon.tictactoe.Square.BOTTOM_RIGHT;
 import static com.tomspencerlondon.tictactoe.Square.CENTRE_LEFT;
 import static com.tomspencerlondon.tictactoe.Square.CENTRE_MIDDLE;
 import static com.tomspencerlondon.tictactoe.Square.CENTRE_RIGHT;
@@ -40,7 +43,11 @@ public class Board {
     public boolean hasWon() {
         Stream<Stream<Square>> winningCombinations = Stream.of(
             Stream.of(TOP_LEFT, TOP_MIDDLE, TOP_RIGHT),
-            Stream.of(CENTRE_LEFT, CENTRE_MIDDLE, CENTRE_RIGHT)
+            Stream.of(CENTRE_LEFT, CENTRE_MIDDLE, CENTRE_RIGHT),
+            Stream.of(BOTTOM_LEFT, BOTTOM_MIDDLE, BOTTOM_RIGHT),
+            Stream.of(TOP_LEFT, CENTRE_LEFT, BOTTOM_LEFT),
+            Stream.of(TOP_MIDDLE, CENTRE_MIDDLE, BOTTOM_MIDDLE),
+            Stream.of(TOP_RIGHT, CENTRE_RIGHT, BOTTOM_RIGHT)
         );
         return winningCombinations.anyMatch(combo -> combo.allMatch(takenSquares::contains));
     }
