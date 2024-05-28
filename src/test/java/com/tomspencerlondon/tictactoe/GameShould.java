@@ -31,10 +31,11 @@ public class GameShould {
     void not_allow_a_square_to_be_played_twice() {
         var game = new Game();
         game = game.play(Square.TOP_LEFT);
+        game = game.play(Square.TOP_MIDDLE);
 
         game = game.play(Square.TOP_LEFT);
 
         assertThat(game.state())
-            .isEqualTo(new GameState(Status.SQUARE_ALREADY_PLAYED, Player.O));
+            .isEqualTo(new GameState(Status.SQUARE_ALREADY_PLAYED, Player.X));
     }
 }

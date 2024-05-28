@@ -1,22 +1,27 @@
 package com.tomspencerlondon.tictactoe;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Board {
 
-    private final Square takenSquare;
+    private final Set<Square> takenSquares;
 
     public Board() {
-        takenSquare = null;
+        takenSquares = new HashSet<>();
     }
 
-    private Board(Square takenSquare) {
-        this.takenSquare = takenSquare;
+    private Board(Set<Square> takenSquares) {
+        this.takenSquares = takenSquares;
     }
 
     public boolean alreadyPlayed(Square toPlay) {
-        return takenSquare == toPlay;
+        return takenSquares.contains(toPlay);
     }
 
     public Board take(Square toPlay) {
-        return new Board(toPlay);
+        Set<Square> newBoard = new HashSet<>(takenSquares);
+        newBoard.add(toPlay);
+        return new Board(newBoard);
     }
 }
