@@ -1,5 +1,11 @@
 package com.tomspencerlondon.tictactoe;
 
+import static com.tomspencerlondon.tictactoe.Square.BOTTOM_LEFT;
+import static com.tomspencerlondon.tictactoe.Square.CENTRE_LEFT;
+import static com.tomspencerlondon.tictactoe.Square.CENTRE_MIDDLE;
+import static com.tomspencerlondon.tictactoe.Square.TOP_LEFT;
+import static com.tomspencerlondon.tictactoe.Square.TOP_MIDDLE;
+import static com.tomspencerlondon.tictactoe.Square.TOP_RIGHT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
@@ -22,9 +28,9 @@ public class GameShould {
     @Test
     void alternate_the_players() {
         var game = new Game();
-        game = game.play(Square.TOP_LEFT);
+        game = game.play(TOP_LEFT);
 
-        game = game.play(Square.TOP_MIDDLE);
+        game = game.play(TOP_MIDDLE);
 
         assertThat(game.state())
             .isEqualTo(new GameState(Status.GAME_ON, Player.X));
@@ -32,7 +38,7 @@ public class GameShould {
 
     @Test
     void not_allow_a_square_to_be_played_twice() {
-        var game = play(Square.TOP_LEFT, Square.TOP_MIDDLE, Square.TOP_LEFT);
+        var game = play(TOP_LEFT, TOP_MIDDLE, TOP_LEFT);
 
         assertThat(game.state())
             .isEqualTo(new GameState(Status.SQUARE_ALREADY_PLAYED, Player.X));
@@ -44,13 +50,13 @@ public class GameShould {
     @Test
     void recognise_a_draw() {
         var game = play(
-            Square.TOP_LEFT,
-            Square.TOP_MIDDLE,
-            Square.TOP_RIGHT,
-            Square.CENTRE_LEFT,
-            Square.CENTRE_MIDDLE,
+            TOP_LEFT,
+            TOP_MIDDLE,
+            TOP_RIGHT,
+            CENTRE_LEFT,
+            CENTRE_MIDDLE,
             Square.CENTRE_RIGHT,
-            Square.BOTTOM_LEFT,
+            BOTTOM_LEFT,
             Square.BOTTOM_MIDDLE,
             Square.BOTTOM_RIGHT);
 
@@ -74,6 +80,20 @@ public class GameShould {
 
         assertThat(game.state())
             .isEqualTo(new GameState(Status.X_HAS_WON, Player.NOBODY));
+    }
+
+    @Test
+    void recognise_when_o_has_won() {
+        Game game = play(
+            BOTTOM_LEFT,
+            TOP_LEFT,
+            CENTRE_LEFT,
+            TOP_MIDDLE,
+            CENTRE_MIDDLE,
+            TOP_RIGHT);
+
+        assertThat(game.state())
+            .isEqualTo(new GameState(Status.O_HAS_WON, Player.NOBODY));
     }
 
     private Game play(Square... squares) {
