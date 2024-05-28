@@ -4,6 +4,7 @@ import static com.tomspencerlondon.tictactoe.Player.NOBODY;
 import static com.tomspencerlondon.tictactoe.Player.O;
 import static com.tomspencerlondon.tictactoe.Player.X;
 import static com.tomspencerlondon.tictactoe.Status.DRAW;
+import static com.tomspencerlondon.tictactoe.Status.X_HAS_WON;
 
 public class Game {
 
@@ -21,6 +22,8 @@ public class Game {
         this.board = board;
         if (board.isFull()) {
             this.status = DRAW;
+        } else if(board.hasWon()) {
+            this.status = X_HAS_WON;
         } else {
             this.status = status;
         }
@@ -28,7 +31,7 @@ public class Game {
     }
 
     public GameState state() {
-        if (status == DRAW) {
+        if (status == DRAW || status == X_HAS_WON) {
             return new GameState(status, NOBODY);
         }
 

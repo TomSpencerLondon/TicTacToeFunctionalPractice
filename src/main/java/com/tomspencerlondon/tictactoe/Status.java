@@ -1,5 +1,5 @@
 package com.tomspencerlondon.tictactoe;
 
 public enum Status {
-    SQUARE_ALREADY_PLAYED, DRAW, GAME_ON
+    SQUARE_ALREADY_PLAYED, DRAW, X_HAS_WON, GAME_ON
 }

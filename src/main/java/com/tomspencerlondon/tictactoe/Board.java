@@ -1,7 +1,15 @@
 package com.tomspencerlondon.tictactoe;
 
+import static com.tomspencerlondon.tictactoe.Square.CENTRE_LEFT;
+import static com.tomspencerlondon.tictactoe.Square.CENTRE_MIDDLE;
+import static com.tomspencerlondon.tictactoe.Square.CENTRE_RIGHT;
+import static com.tomspencerlondon.tictactoe.Square.TOP_LEFT;
+import static com.tomspencerlondon.tictactoe.Square.TOP_MIDDLE;
+import static com.tomspencerlondon.tictactoe.Square.TOP_RIGHT;
+
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class Board {
 
@@ -27,5 +35,13 @@ public class Board {
 
     public boolean isFull() {
         return takenSquares.size() == 9;
+    }
+
+    public boolean hasWon() {
+        Stream<Stream<Square>> winningCombinations = Stream.of(
+            Stream.of(TOP_LEFT, TOP_MIDDLE, TOP_RIGHT),
+            Stream.of(CENTRE_LEFT, CENTRE_MIDDLE, CENTRE_RIGHT)
+        );
+        return winningCombinations.anyMatch(combo -> combo.allMatch(takenSquares::contains));
     }
 }
