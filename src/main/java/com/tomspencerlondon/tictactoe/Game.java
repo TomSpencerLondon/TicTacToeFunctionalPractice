@@ -1,22 +1,33 @@
 package com.tomspencerlondon.tictactoe;
 
+import static com.tomspencerlondon.tictactoe.Player.O;
+import static com.tomspencerlondon.tictactoe.Player.X;
+
 public class Game {
 
-    private final Player nextPlayer;
+    private final Player currentPlayer;
 
     public  Game() {
-        nextPlayer = Player.X;
+        currentPlayer = null;
     }
 
-    private Game(Player nextPlayer) {
-        this.nextPlayer = nextPlayer;
+    private Game(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     public GameState state() {
-        return new GameState(Status.GAME_ON, nextPlayer);
+        return new GameState(Status.GAME_ON, nextPlayer());
     }
 
     public Game play() {
-        return new Game(Player.O);
+        return new Game(nextPlayer());
+    }
+
+    private Player nextPlayer() {
+        if (currentPlayer == null) {
+            return X;
+        } else {
+            return currentPlayer == X ? O : X;
+        }
     }
 }
