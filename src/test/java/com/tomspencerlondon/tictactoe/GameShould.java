@@ -1,8 +1,11 @@
 package com.tomspencerlondon.tictactoe;
 
 import static com.tomspencerlondon.tictactoe.Square.BOTTOM_LEFT;
+import static com.tomspencerlondon.tictactoe.Square.BOTTOM_MIDDLE;
+import static com.tomspencerlondon.tictactoe.Square.BOTTOM_RIGHT;
 import static com.tomspencerlondon.tictactoe.Square.CENTRE_LEFT;
 import static com.tomspencerlondon.tictactoe.Square.CENTRE_MIDDLE;
+import static com.tomspencerlondon.tictactoe.Square.CENTRE_RIGHT;
 import static com.tomspencerlondon.tictactoe.Square.TOP_LEFT;
 import static com.tomspencerlondon.tictactoe.Square.TOP_MIDDLE;
 import static com.tomspencerlondon.tictactoe.Square.TOP_RIGHT;
@@ -55,10 +58,10 @@ public class GameShould {
             TOP_RIGHT,
             CENTRE_LEFT,
             CENTRE_MIDDLE,
-            Square.CENTRE_RIGHT,
-            BOTTOM_LEFT,
-            Square.BOTTOM_MIDDLE,
-            Square.BOTTOM_RIGHT);
+            BOTTOM_MIDDLE,
+            CENTRE_RIGHT,
+            BOTTOM_RIGHT,
+            BOTTOM_LEFT);
 
         assertThat(game.state())
             .isEqualTo(new GameState(Status.DRAW, Player.NOBODY));
@@ -94,6 +97,20 @@ public class GameShould {
 
         assertThat(game.state())
             .isEqualTo(new GameState(Status.O_HAS_WON, Player.NOBODY));
+    }
+
+    @Test
+    void not_permit_play_after_game_is_won() {
+        var game = play(
+            TOP_LEFT,
+            CENTRE_LEFT,
+            TOP_MIDDLE,
+            CENTRE_MIDDLE,
+            TOP_RIGHT,
+            CENTRE_RIGHT);
+
+        assertThat(game.state())
+            .isEqualTo(new GameState(Status.X_HAS_WON, Player.NOBODY));
     }
 
     private Game play(Square... squares) {
