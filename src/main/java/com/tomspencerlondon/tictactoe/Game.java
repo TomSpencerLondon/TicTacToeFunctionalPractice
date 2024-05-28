@@ -5,22 +5,32 @@ import static com.tomspencerlondon.tictactoe.Player.X;
 
 public class Game {
 
+    private final Status status;
     private final Player currentPlayer;
+    private Board board;
 
     public  Game() {
         currentPlayer = null;
+        board = new Board();
+        status = Status.GAME_ON;
     }
 
-    private Game(Player currentPlayer) {
+    private Game(Status status, Board board, Player currentPlayer) {
+        this.status = status;
+        this.board = board;
         this.currentPlayer = currentPlayer;
     }
 
     public GameState state() {
-        return new GameState(Status.GAME_ON, nextPlayer());
+        return new GameState(status, nextPlayer());
     }
 
-    public Game play() {
-        return new Game(nextPlayer());
+    public Game play(Square toPlay) {
+        if (board.alreadyPlayed(toPlay)) {
+            return new Game(Status.SQUARE_ALREADY_PLAYED, board, currentPlayer);
+        }
+
+        return new Game(status, board.take(toPlay), nextPlayer());
     }
 
     private Player nextPlayer() {
