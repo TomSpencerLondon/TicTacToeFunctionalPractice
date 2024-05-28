@@ -17,16 +17,6 @@ public class GameShould {
     }
 
     @Test
-    void wait_for_o_to_play_after_x() {
-        var game = new Game();
-
-        game = game.play();
-
-        assertThat(game.state())
-            .isEqualTo(new GameState(Status.GAME_ON, Player.O));
-    }
-
-    @Test
     void alternate_the_players() {
         var game = new Game();
         game = game.play();
