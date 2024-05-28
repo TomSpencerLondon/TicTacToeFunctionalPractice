@@ -1,7 +1,9 @@
 package com.tomspencerlondon.tictactoe;
 
+import static com.tomspencerlondon.tictactoe.Player.NOBODY;
 import static com.tomspencerlondon.tictactoe.Player.O;
 import static com.tomspencerlondon.tictactoe.Player.X;
+import static com.tomspencerlondon.tictactoe.Status.DRAW;
 
 public class Game {
 
@@ -16,12 +18,20 @@ public class Game {
     }
 
     private Game(Status status, Board board, Player currentPlayer) {
-        this.status = status;
         this.board = board;
+        if (board.isFull()) {
+            this.status = DRAW;
+        } else {
+            this.status = status;
+        }
         this.currentPlayer = currentPlayer;
     }
 
     public GameState state() {
+        if (status == DRAW) {
+            return new GameState(status, NOBODY);
+        }
+
         return new GameState(status, nextPlayer());
     }
 
